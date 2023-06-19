@@ -1,5 +1,3 @@
-require "jennifer"
-
 class TravelPlans < Jennifer::Model::Base
   with_timestamps
   mapping(

@@ -1,7 +1,7 @@
 require "jennifer"
 require "jennifer/adapter/postgres"
 
-require "./src/config/initializers/*"
+require "./config/initializers/*"
 require "./src/db/migrations/*"
 require "sam"
 require "jennifer/sam"

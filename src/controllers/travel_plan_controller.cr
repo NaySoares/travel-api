@@ -1,18 +1,28 @@
 require "kemal"
 require "json"
 require "random"
-require "../models/TravelPlans"
+require "../db/*"
+
+db = DatabaseManager.connection
 
 class TravelPlanController < Kemal::Handler
   before_all "/travel-plans/*" do |context|
     context.response.content_type = "application/json"
   end
+  
+  get "/travel_plans" do |context|
+    try do
+      db.exec "insert into contacts (name, age) values ('agora', 87)"
+    rescue
+      puts "error"
+      db.close
+    end
 
-  get "/travel-plans" do |context|
-    "Hello World! Nothing to see here."
+    message = "Hello World! Nothing to see here.".to_json
+    halt context, status_code: 201, response: message
   end
 
-  post "/travel-plans" do |context|
+  post "/travel_plans" do |context|
     travel_stops = context.params.json["travel_stops"].as(Array)
     
     if !travel_stops

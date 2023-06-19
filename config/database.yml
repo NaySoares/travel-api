@@ -10,7 +10,7 @@ default: &default
 development:
   <<: *default
   db: milenio-api_development
-  docker_container: rick-morty-api-db-1
+  docker_container: travel-api-db-1
 
 test:
   <<: *default

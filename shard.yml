@@ -4,9 +4,11 @@ version: 0.1.0
 dependencies:
   jennifer:
     github: imdrasil/jennifer.cr
-    version: "~> 0.13.0"
+    version: "0.12.0"
   pg:
     github: will/crystal-pg
+  db:
+    github: crystal-lang/crystal-db
   crystal-env:
     github: crystal-lang/crystal-env
   sam:

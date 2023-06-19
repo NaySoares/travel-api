@@ -1,12 +1,8 @@
 require "crystal-env"
 require "kemal"
-require "./controllers/travel_plan_controller"
-require "db"
-require "pg"
-require "crystal-env"
+require "./controllers/*"
+require "./db/*"
 
-DB.open("postgres://axios:docker@localhost:5432/milenio-api_development") do |db|
-   
-end
+DatabaseManager.setup
 
 Kemal.run
