@@ -1,0 +1,27 @@
+name: rick-morty-api
+version: 0.1.0
+
+dependencies:
+  jennifer:
+    github: imdrasil/jennifer.cr
+    version: "~> 0.13.0"
+  pg:
+    github: will/crystal-pg
+  crystal-env:
+    github: crystal-lang/crystal-env
+  sam:
+    github: imdrasil/sam.cr
+    version: 0.4.2
+  kemal:
+    github: kemalcr/kemal
+
+authors:
+  - Elienai <elienay.soares07@gmail.com>
+
+targets:
+  rick-morty-api:
+    main: src/server.cr
+
+crystal: 1.8.2
+
+license: MIT

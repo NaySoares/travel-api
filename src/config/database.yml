@@ -1,0 +1,23 @@
+default: &default
+  host: localhost
+  user: axios
+  password: docker
+  adapter: postgres
+  migration_files_path: src/db/migrations
+  model_files_path: src/models
+  command_shell: docker 
+
+development:
+  <<: *default
+  db: milenio-api_development
+  docker_container: rick-morty-api-db-1
+
+test:
+  <<: *default
+  db: milenio-api_test
+  docker_container: rick-morty-api-db-1
+
+production:
+  <<: *default
+  db: milenio-api_production
+  docker_container: rick-morty-api-db-1

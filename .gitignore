@@ -1,0 +1,39 @@
+/docs/
+/lib/
+/bin/
+/.shards/
+.crystal
+*.dwarf
+shard.lock
+.tmp
+
+# macOS specific files
+.DS_Store
+
+# Kamel specific files
+.kamel
+
+# Jennifer specific files
+.db
+.jennifer
+
+# Environment variables file
+.env
+
+# Build artifacts
+build/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# System specific files
+Thumbs.db
+ehthumbs.db
+Icon?
+ehthumbs_vista.db
+
+# Package files
+*.gz
+*.tar.gz
+*.zip
