@@ -1,6 +1,6 @@
 require "crystal-env"
 require "kemal"
-require "./controllers/*"
+require "./useCases/*"
 require "./db/*"
 
 DatabaseManager.setup

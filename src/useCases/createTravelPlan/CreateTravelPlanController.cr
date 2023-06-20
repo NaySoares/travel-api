@@ -1,28 +1,11 @@
 require "kemal"
 require "json"
 require "random"
-require "../db/*"
-
-db = DatabaseManager.connection
+require "./CreateTravelPlanUseCase"
 
 class TravelPlanController < Kemal::Handler
-  before_all "/travel-plans/*" do |context|
-    context.response.content_type = "application/json"
-  end
-  
-  get "/travel_plans" do |context|
-    try do
-      db.exec "insert into contacts (name, age) values ('agora', 87)"
-    rescue
-      puts "error"
-      db.close
-    end
-
-    message = "Hello World! Nothing to see here.".to_json
-    halt context, status_code: 201, response: message
-  end
-
   post "/travel_plans" do |context|
+    context.response.content_type = "application/json"
     travel_stops = context.params.json["travel_stops"].as(Array)
     
     if !travel_stops
@@ -31,14 +14,11 @@ class TravelPlanController < Kemal::Handler
     end
 
     r = Random.new
-    id_return = r.next_u
+    id = r.next_u
 
-    travel_plan = {
-      "id" => id_return,
-      "travel_stops" => travel_stops
-    }.to_json
+    travel_plan = CreateTravelPlanUseCase.execute(id, travel_stops)
 
-    halt context, status_code: 201, response: travel_plan
+    halt context, status_code: 201, response: travel_plan.to_json
   end
 
   post "/travel-plans/:id" do |context|
