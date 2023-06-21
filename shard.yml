@@ -16,7 +16,7 @@ dependencies:
     version: 0.4.2
   kemal:
     github: kemalcr/kemal
-
+    
 authors:
   - Elienai <elienay.soares07@gmail.com>
 

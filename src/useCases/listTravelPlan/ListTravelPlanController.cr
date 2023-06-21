@@ -8,6 +8,6 @@ class TravelPlanController < Kemal::Handler
 
     list_travel_plans = ListTravelPlanController.execute()
 
-    halt context, status_code: 201, response: list_travel_plans.to_json
+    halt context, status_code: 200, response: list_travel_plans.to_json
   end
 end
