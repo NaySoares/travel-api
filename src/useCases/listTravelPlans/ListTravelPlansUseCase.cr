@@ -12,7 +12,7 @@ struct TravelStop < StopPoint
   def initialize(@id : Id, @travel_stops : Array(Int32)); end
 end
 
-class ListTravelPlanController 
+class ListTravelPlansUseCase 
   def self.execute() 
     db = DatabaseManager.connection
     list_travel_plans = Array(TravelStop).new

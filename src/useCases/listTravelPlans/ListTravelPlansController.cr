@@ -1,12 +1,12 @@
 require "kemal"
 require "json"
-require "./ListTravelPlanController"
+require "./ListTravelPlansUseCase"
 
-class TravelPlanController < Kemal::Handler
+class ListTravelPlansController < Kemal::Handler
   get "/travel_plans" do |context|
     context.response.content_type = "application/json"
 
-    list_travel_plans = ListTravelPlanController.execute()
+    list_travel_plans = ListTravelPlansUseCase.execute()
 
     halt context, status_code: 200, response: list_travel_plans.to_json
   end

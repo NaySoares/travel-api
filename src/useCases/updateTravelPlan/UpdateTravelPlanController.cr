@@ -2,7 +2,7 @@ require "kemal"
 require "json"
 require "./UpdateTravelPlanController"
 
-class TravelPlanController < Kemal::Handler
+class UpdateTravelPlanController < Kemal::Handler
   put "/travel_plans/:id" do |context|
     context.response.content_type = "application/json"
     id = context.params.url["id"]
@@ -11,7 +11,7 @@ class TravelPlanController < Kemal::Handler
     id_as_number = nil
 
     try do
-      id_as_number = id.to_i
+      id_as_number = id.to_i64
     rescue
       error = {message: "id is required and must be a number"}
       halt context, status_code: 403, response: error.to_json

@@ -1,6 +1,5 @@
 require "../../db/*"
 
-
 class CreateTravelPlanUseCase 
   def self.execute(id, travelStops) 
     db = DatabaseManager.connection

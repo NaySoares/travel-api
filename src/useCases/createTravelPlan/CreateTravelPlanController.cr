@@ -3,7 +3,7 @@ require "json"
 require "random"
 require "./CreateTravelPlanUseCase"
 
-class TravelPlanController < Kemal::Handler
+class CreateTravelPlanController < Kemal::Handler
   post "/travel_plans" do |context|
     context.response.content_type = "application/json"
     travel_stops = context.params.json["travel_stops"].as(Array)
