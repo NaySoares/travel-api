@@ -3,7 +3,7 @@ require "json"
 require "./UpdateTravelPlanController"
 
 class TravelPlanController < Kemal::Handler
-  post "/travel_plans/:id" do |context|
+  put "/travel_plans/:id" do |context|
     context.response.content_type = "application/json"
     id = context.params.url["id"]
     travel_stops = context.params.json["travel_stops"].as(Array)
@@ -22,9 +22,9 @@ class TravelPlanController < Kemal::Handler
       halt context, status_code: 403, response: error.to_json
     end
 
-    travel_plan_updated = CreateTravelPlanUseCase.execute(id, travel_stops)
+    travel_plan_updated = UpdateTravelPlanUseCase.execute(id, travel_stops)
 
-    halt context, status_code: 201, response: travel_plan_updated.to_json
+    halt context, status_code: 200, response: travel_plan_updated.to_json
 
   end
 end

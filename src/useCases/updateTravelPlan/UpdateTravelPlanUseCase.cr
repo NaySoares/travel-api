@@ -1,18 +1,17 @@
 require "../../db/*"
 
-
-class UpdateTravelPlanController 
+class UpdateTravelPlanUseCase
   def self.execute(id, travelStops) 
     db = DatabaseManager.connection
     try do
-      db.exec ("INSERT INTO travels (id, travel_stops) VALUES (#{id}, ARRAY#{travelStops})")
+      db.exec ("UPDATE travels SET travel_stops = Array#{travelStops} WHERE id = #{id}")
 
       return travel_plan = {
         "id" => id,
         "travel_stops" => travelStops
       }
     rescue e    
-      puts "Error while creating travel plan: #{e}"
+      puts "Error while updating travel plan: #{e}"
     end
 
     db.close
