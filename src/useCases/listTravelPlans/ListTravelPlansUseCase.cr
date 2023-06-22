@@ -13,7 +13,7 @@ struct TravelStop < StopPoint
 end
 
 class ListTravelPlansUseCase 
-  def self.execute() 
+  def self.execute(optimize, expand)
     db = DatabaseManager.connection
     list_travel_plans = Array(TravelStop).new
     try do
