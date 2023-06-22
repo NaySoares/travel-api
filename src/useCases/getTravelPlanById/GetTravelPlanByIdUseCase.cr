@@ -7,7 +7,7 @@ class GetTravelPlanByIdUseCase
     try do
       db.query "SELECT id, travel_stops FROM travels WHERE id = #{id}" do |rs|
         rs.each do 
-          id = rs.read(Int64)
+          id = rs.read(Int32)
           travel_stops = rs.read(Array(Int32))
 
           return travel_plan = {
@@ -19,7 +19,9 @@ class GetTravelPlanByIdUseCase
     rescue e
       puts "Error while listing travel plans: #{e}"
     end
+
     db.close
-  
+    
+    return 404
   end
 end

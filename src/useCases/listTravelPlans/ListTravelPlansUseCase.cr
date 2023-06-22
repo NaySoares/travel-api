@@ -19,7 +19,7 @@ class ListTravelPlansUseCase
     try do
       db.query "SELECT id, travel_stops FROM travels ORDER BY id DESC" do |rs|
         rs.each do 
-          id = rs.read(Int64)
+          id = rs.read(Int32)
           travel_stops = rs.read(Array(Int32))
 
           result = TravelStop.new(id, travel_stops)

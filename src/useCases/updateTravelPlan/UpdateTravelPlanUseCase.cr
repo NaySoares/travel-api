@@ -15,5 +15,6 @@ class UpdateTravelPlanUseCase
     end
 
     db.close
+    return 404
   end
 end
