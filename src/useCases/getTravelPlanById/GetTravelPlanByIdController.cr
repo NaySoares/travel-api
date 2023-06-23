@@ -6,6 +6,7 @@ class GetTravelPlanByIdController < Kemal::Handler
   get "/travel_plans/:id" do |context|
     context.response.content_type = "application/json"
     id = 0
+    error = nil
 
     try do 
       id = context.params.url["id"].to_i32
@@ -13,6 +14,8 @@ class GetTravelPlanByIdController < Kemal::Handler
       error = {message: "id is required and must be a number"}
       halt context, status_code: 403, response: error.to_json
     end
+
+    next if error
 
     travel_plans = GetTravelPlanByIdUseCase.execute(id)
 

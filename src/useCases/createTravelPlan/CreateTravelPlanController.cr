@@ -7,6 +7,12 @@ class CreateTravelPlanController < Kemal::Handler
   post "/travel_plans" do |context|
     context.response.content_type = "application/json"
     travel_stops = context.params.json["travel_stops"].as(Array)
+    error = nil
+
+    if !travel_stops
+      error = {message: "travel_stops is required"}.to_json
+      halt context, status_code: 403, response: error
+    end
 
     travel_stops.each { |element| 
       if element.as_i64 < 1 || element.as_i64 > 126
@@ -14,11 +20,8 @@ class CreateTravelPlanController < Kemal::Handler
         halt context, status_code: 403, response: error
       end
     }
-    
-    if !travel_stops
-      error = {message: "travel_stops is required"}.to_json
-      halt context, status_code: 403, response: error
-    end
+
+    next if error 
 
     travel_plan = CreateTravelPlanUseCase.execute(travel_stops)
 

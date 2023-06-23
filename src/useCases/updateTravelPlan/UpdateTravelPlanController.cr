@@ -8,6 +8,7 @@ class UpdateTravelPlanController < Kemal::Handler
     context.response.content_type = "application/json"
     travel_stops = context.params.json["travel_stops"].as(Array)
     id = 0
+    error = nil
 
     try do 
       id = context.params.url["id"].to_i32
@@ -27,6 +28,8 @@ class UpdateTravelPlanController < Kemal::Handler
       error = {message: "Travel plan not found"}
       halt context, status_code: 404, response: error.to_json
     end
+
+    next if error
 
     travel_plan_updated = UpdateTravelPlanUseCase.execute(id, travel_stops)
 

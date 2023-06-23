@@ -7,6 +7,7 @@ class DeleteTravelPlanController < Kemal::Handler
   delete "/travel_plans/:id" do |context|
     context.response.content_type = "application/json"
     id = 0
+    error = nil
 
     try do 
       id = context.params.url["id"].to_i32
@@ -21,6 +22,8 @@ class DeleteTravelPlanController < Kemal::Handler
       error = {message: "Travel plan not found"}
       halt context, status_code: 404, response: error.to_json
     end
+
+    next if error
     
     DeleteTravelPlanUseCase.execute(id)
 
