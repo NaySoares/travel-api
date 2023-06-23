@@ -5,6 +5,8 @@ require "./GetTravelPlanByIdUseCase"
 class GetTravelPlanByIdController < Kemal::Handler
   get "/travel_plans/:id" do |context|
     context.response.content_type = "application/json"
+    optimize = context.params.query["optimize"]? 
+    expand = context.params.query["expand"]? 
     id = 0
     error = nil
 
@@ -17,7 +19,7 @@ class GetTravelPlanByIdController < Kemal::Handler
 
     next if error
 
-    travel_plans = GetTravelPlanByIdUseCase.execute(id)
+    travel_plans = GetTravelPlanByIdUseCase.execute(id, expand, optimize)
 
     if travel_plans == 404
       error = {message: "Travel plan not found"}

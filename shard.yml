@@ -14,6 +14,8 @@ dependencies:
   sam:
     github: imdrasil/sam.cr
     version: 0.4.2
+  graphql:
+    github: graphql-crystal/graphql
   kemal:
     github: kemalcr/kemal
     

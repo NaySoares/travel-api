@@ -1,6 +1,8 @@
 require "http/client"
+require "json"
 
 BASEURL = "https://rickandmortyapi.com/api/"
+BASEURL_GRAPHQL = "https://rickandmortyapi.com/graphql"
 
 class RestClient < HTTP::Client
   def get(url)
@@ -26,6 +28,30 @@ class RestClient < HTTP::Client
     ready_url = "#{BASEURL}episode/#{id}"
     response = HTTP::Client.get ready_url
 
+    return response
+  end
+end
+
+class GraphqlClient < HTTP::Client
+  def get(url, id_character = 1, id_location = 1)
+    query = {
+      character(id: id_character) {
+        episode {
+          id
+        }
+      },
+      location(id: id_location) {
+        id
+        name
+        type
+        dimension
+        residents {
+          id
+        }
+      }
+    }.to_json
+
+    response = HTTP::Client.post("#{BASEURL_GRAPHQL}", headers: HTTP::Headers{"Content-Type" => "application/json"}, body: "query: #{query}")
     return response
   end
 end

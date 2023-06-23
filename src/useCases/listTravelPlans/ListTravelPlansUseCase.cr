@@ -1,7 +1,8 @@
 require "../../db/*"
+require "../../utils/*"
 require "json"
 
-alias Id = Int64
+alias Id = Int32
 
 abstract struct StopPoint
   include JSON::Serializable
@@ -12,10 +13,17 @@ struct TravelStop < StopPoint
   def initialize(@id : Id, @travel_stops : Array(Int32)); end
 end
 
+struct TravelStopExpanded < StopPoint
+  getter id, name, type, dimension
+  def initialize(@id : Id, name : String, type : String, dimension : String);
+  end
+end
+
 class ListTravelPlansUseCase 
   def self.execute(optimize, expand)
     db = DatabaseManager.connection
     list_travel_plans = Array(TravelStop).new
+
     try do
       db.query "SELECT id, travel_stops FROM travels ORDER BY id DESC" do |rs|
         rs.each do 
@@ -34,4 +42,6 @@ class ListTravelPlansUseCase
     return list_travel_plans
   
   end
+
+  
 end
