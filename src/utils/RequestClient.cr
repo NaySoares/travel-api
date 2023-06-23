@@ -33,25 +33,12 @@ class RestClient < HTTP::Client
 end
 
 class GraphqlClient < HTTP::Client
-  def get(url, id_character = 1, id_location = 1)
-    query = {
-      character(id: id_character) {
-        episode {
-          id
-        }
-      },
-      location(id: id_location) {
-        id
-        name
-        type
-        dimension
-        residents {
-          id
-        }
-      }
-    }.to_json
+  # id = 0, return null
+  def self.get(id_location = 0, id_character = 0)
+    query = "\"query\": \"{ location (id: #{id_location}) { id name type dimension residents { id } }, character ( id: #{id_character}) { episode { id } } }\""
 
-    response = HTTP::Client.post("#{BASEURL_GRAPHQL}", headers: HTTP::Headers{"Content-Type" => "application/json"}, body: "query: #{query}")
-    return response
+    response = HTTP::Client.post(BASEURL_GRAPHQL, headers: HTTP::Headers{"Content-Type" => "application/json"}, body: "{ #{query} }")
+        
+    return JSON.parse(response.body)
   end
 end

@@ -25,10 +25,13 @@ class GetTravelPlanByIdUseCase
             stops = Array(Stops).new
             
             travel_stops = travel_stops.map do |stop|
-              response = RestClient.getLocation(stop)
-              res_json = JSON.parse(response.body)
+              response = GraphqlClient.get(stop, 0)
+
+              name = response["data"]["location"]["name"].as_s
+              type = response["data"]["location"]["type"].as_s
+              dimension = response["data"]["location"]["dimension"].as_s
               
-              result = Stops.new(stop, res_json["name"].as_s, res_json["type"].as_s, res_json["dimension"].as_s)
+              result = Stops.new(stop, name, type, dimension)
 
               stops.push(result)
             end
