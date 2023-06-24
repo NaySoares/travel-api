@@ -5,8 +5,8 @@ require "./GetTravelPlanByIdUseCase"
 class GetTravelPlanByIdController < Kemal::Handler
   get "/travel_plans/:id" do |context|
     context.response.content_type = "application/json"
-    optimize = context.params.query["optimize"]? 
-    expand = context.params.query["expand"]? 
+    should_optimize = context.params.query["optimize"]? 
+    should_expand = context.params.query["expand"]? 
     id = 0
     error = nil
 
@@ -14,12 +14,12 @@ class GetTravelPlanByIdController < Kemal::Handler
       id = context.params.url["id"].to_i32
     rescue
       error = {message: "id is required and must be a number"}
-      halt context, status_code: 403, response: error.to_json
+      halt context, status_code: 400, response: error.to_json
     end
 
     next if error
 
-    travel_plans = GetTravelPlanByIdUseCase.execute(id, expand, optimize)
+    travel_plans = GetTravelPlanByIdUseCase.execute(id, should_expand, should_optimize)
 
     if travel_plans == 404
       error = {message: "Travel plan not found"}
