@@ -1,5 +1,5 @@
 require "../../db/*"
-require "../../utils/*"
+require "../../utils/RequestClient"
 require "json"
 
 class CreateTravelPlanUseCase 
@@ -18,7 +18,7 @@ class CreateTravelPlanUseCase
 
     db = DatabaseManager.connection
     try do
-      db.exec ("INSERT INTO travels (travel_stops, name, type, dimension) VALUES (ARRAY#{travelStops}, '#{name}', '#{type}', '#{dimension}');") 
+      db.exec("INSERT INTO travels (travel_stops, name, type, dimension) VALUES ($1, $2, $3, $4)", travelStops, name, type, dimension) 
     rescue e    
       puts "Error while creating travel plan: #{e}"
     end

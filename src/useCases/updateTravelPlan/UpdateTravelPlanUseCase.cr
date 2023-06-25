@@ -4,7 +4,7 @@ class UpdateTravelPlanUseCase
   def self.execute(id, travelStops) 
     db = DatabaseManager.connection
     try do
-      db.exec ("UPDATE travels SET travel_stops = Array#{travelStops} WHERE id = #{id}")
+      db.exec("UPDATE travels SET travel_stops = Array$1 WHERE id = $2", travelStops, id)
 
       return travel_plan = {
         "id" => id,
